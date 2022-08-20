@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "vadimcn.vscode-lldb",
+        "mutantdino.resourcemonitor",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+    ],
+    "unwantedRecommendations": [
+        "vscode.typescript-language-features",
+        "vscode.github",
+        "vscode.github-authentication"
+    ]
+}
