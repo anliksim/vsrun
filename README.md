@@ -1,8 +1,10 @@
 # vsrun
 
-Visual Studio Code run cli that simplifies extension management.
-
-
+<p align="center">
+  <img width="150" src="docs/logo.svg">
+</p>
+<p align="center">Visual Studio Code run cli that simplifies extension management.</p>
+<br/>
 
 VSCode currently laks automatic extension management. You can manage recommended and unwated extensions in `.vscode/extensions.json` but there is no way to automatically install and enable/disable.
 
@@ -27,6 +29,25 @@ vsrun path/to/project
 code --help
 ```
 
+When opening a project, the cli will read your `.vscode/extensions.json` file, install the recommendations and disable all other extensions installed. Additionally, all unwanted recommendations are disabled. This allows you to also disable built-in extensions.
+
+A valid `extensions.json` file is required, e.g.:
+```json
+{
+    "recommendations": [
+        "vadimcn.vscode-lldb",
+        "mutantdino.resourcemonitor",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+    ],
+    "unwantedRecommendations": [
+        "vscode.typescript-language-features",
+        "vscode.github",
+        "vscode.github-authentication"
+    ]
+}
+```
 
 
 ## Develop
