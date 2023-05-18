@@ -9,11 +9,10 @@ use serde::{Deserialize, Serialize};
 #[clap(version, author, about, long_about = None)]
 struct Cli {
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
-    path: std::path::PathBuf,
+    path: Option<std::path::PathBuf>,
 
     /// Extra agruments that are passed to vscode
-    #[clap(value_parser)]
+    #[arg(value_parser)]
     args: Option<String>,
     // Do not install extensions in recommendations
     // #[clap(long, action)]
@@ -38,7 +37,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::parse();
     debug!("{:?}", args);
 
-    let path = &args.path;
+    let path = args
+        .path
+        .with_context(|| format!("please specify a project path"))?;
 
     path.read_dir()
         .with_context(|| format!("could not read dir `{:?}`", path))?;
