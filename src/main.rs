@@ -30,6 +30,11 @@ struct Extensions {
     unwanted_recommendations: Option<Vec<String>>,
 }
 
+const NO_EXT: &str = "{
+    \"recommendations\": [],
+    \"unwantedRecommendations\": []
+}";
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();
     debug!("starting up");
@@ -49,8 +54,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     info!("running project {}", path);
 
-    let extensions = fs::read_to_string(extensions_path)
-        .with_context(|| format!("could not find extensions.json"))?;
+    let extensions = match fs::read_to_string(extensions_path) {
+        Ok(v) => v,
+        Err(_e) => {
+            info!("could not find extensions.json, running without extensions");
+            NO_EXT.to_string()
+        }
+    };
+
     let extensions: Extensions = serde_json::from_str(&extensions)
         .with_context(|| format!("could not parse extensions.json"))?;
     debug!("extensions.json: {:#?}", extensions);
@@ -94,8 +105,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let mut args = vec!["/C", "code"];
-    args.extend(installs);
-    args.extend(vec!["&&", "code"]);
+    if !installs.is_empty() {
+        args.extend(installs);
+        args.extend(vec!["&&", "code"]);
+    }
     args.extend(disables);
     args.push(path);
 

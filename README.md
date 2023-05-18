@@ -17,7 +17,7 @@ I like everything to work without any manual steps. In addition, if you work wit
 > Note: This has been implemented for Windows only so far and was tested with Windows 11. Please open an issue if you want to use it on Mac/Linux or if you are running into any issues.
 
 
-Get the lastest released binary from the releases and put it on your path, then open your project using the cli.
+Get the lastest released binary from the releases and put it on your path, then open your project using the cli. Both absolute and relative paths are supported as `path/to/project`.
 
 ```
 vsrun path/to/project
@@ -46,6 +46,14 @@ A valid `extensions.json` file is required, e.g.:
         "vscode.github",
         "vscode.github-authentication"
     ]
+}
+```
+
+If not `extensions.json` is present, an empty fallback is used:
+```json
+{
+    "recommendations": [],
+    "unwantedRecommendations": []
 }
 ```
 

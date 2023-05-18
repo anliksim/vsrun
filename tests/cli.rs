@@ -50,9 +50,7 @@ fn extensions_file_not_exists() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut cmd = Command::cargo_bin("vsrun")?;
     cmd.arg(file.parent().unwrap());
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("could not find extensions.json"));
+    cmd.assert().success();
 
     Ok(())
 }
