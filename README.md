@@ -68,3 +68,11 @@ RUST_LOG=debug cargo run .
 ---
 
 Thanks to [rust-cli](https://github.com/rust-cli) for the comprehensive guide on how to create a CLI in rust.
+
+
+## Release
+
+Build in release mode
+```
+cargo build -r
+```
